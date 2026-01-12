@@ -20,7 +20,6 @@ public:
             prev = curr;
             curr = forward;
         }
-        head = prev;
-        return head; 
+        return prev; 
     }
 };
