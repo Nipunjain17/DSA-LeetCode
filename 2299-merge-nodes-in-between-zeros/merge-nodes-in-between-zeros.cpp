@@ -13,24 +13,23 @@ public:
     ListNode* mergeNodes(ListNode* head) {
         if(head == NULL) return head;
 
-        while(head->val == 0){
-            head = head->next;
-        }
-
-        ListNode* curr = head;
-        ListNode* dummy = new ListNode(-1);
-        ListNode* prev = dummy;
+        ListNode* curr = head->next; // skips 1st zero
+        ListNode* prev = head; // yaha se LL likhenge!!
         int total = 0;
+
         while(curr != NULL){
-            total += curr->val;
             if(curr->val == 0){
-                curr->val = total;
-                total = 0;
                 prev->next = curr;
                 prev = prev->next;
+                prev->val = total;
+                total = 0;
+            }
+            else{
+                total += curr->val;
             }
             curr = curr->next;
         }
-        return dummy->next;
+        prev->next = NULL;
+        return head->next;
     }
 };
