@@ -3,32 +3,33 @@ public:
     string reverseParentheses(string s) {
         int n = s.size();
 
-        stack<char> st;
-        for(auto ch : s){
-            if(ch == '(' || (ch >= 'a' && ch <= 'z')){
-                st.push(ch);
-            }
-            else if(ch == ')'){
-                string store = "";
-                while(!st.empty() && st.top() != '('){
-                    store += st.top();
-                    st.pop();
-                }
+        vector<int> pair(n);
+        stack<int> st;
 
-                st.pop(); // when find it '(' then pop it!
-                // push the character into stack
-                for(auto str : store){
-                    st.push(str);    
-                }
+        for(int i=0; i<n; i++){
+            if(s[i] == '('){
+                st.push(i);
+            }
+            else if(s[i] == ')'){
+                int j = st.top();
+                st.pop();
+
+                pair[i] = j;
+                pair[j] = i;
             }
         }
+
         string ans = "";
-        while(!st.empty()){
-            char ch = st.top();
-            ans += ch;
-            st.pop();
+        int dirn = 1;
+        for(int i=0; i<n; i += dirn){
+            if(s[i] == '(' || s[i] == ')'){
+                i = pair[i];
+                dirn = - dirn;
+            }
+            else{
+                ans += s[i];
+            }
         }
-        reverse(ans.begin(), ans.end());
         return ans;
     }
 };
