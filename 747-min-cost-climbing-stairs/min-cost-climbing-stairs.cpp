@@ -28,7 +28,18 @@ public:
         }
         return min(dp[n-1], dp[n-2]);
     }
-    
+    // Tabulation Method with Space OPtimization
+    int solve3(vector<int> &cost, int n){
+        int prev2 = cost[0];
+        int prev1 = cost[1];
+
+        for(int i=2; i<n; i++){
+            int curr = cost[i] + min(prev1, prev2);
+            prev2 = prev1;
+            prev1 = curr;
+        }
+        return min(prev1, prev2);
+    }
     int minCostClimbingStairs(vector<int>& cost){
         int n = cost.size();
         /*
@@ -36,6 +47,6 @@ public:
         vector<int> dp(n+1, -1);
         // Either reaches from n-1 or n-2 stair
         int ans = min(solve1(cost, n-1, dp), solve2(cost, n-2, dp));*/
-        return solve2(cost, n);
+        return solve3(cost, n);
     }
 };
