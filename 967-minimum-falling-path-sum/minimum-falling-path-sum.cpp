@@ -11,7 +11,7 @@ public:
     }
     int minFallingPathSum(vector<vector<int>>& matrix) {
         int rows = matrix.size(), cols = matrix[0].size();
-        vector<vector<int>> dp(rows+1, vector<int>(cols+1, INT_MAX));
+        vector<vector<int>> dp(rows, vector<int>(cols, INT_MAX));
         int ans = INT_MAX;
         for(int c=0; c < cols; c++){
             ans = min(ans, minFallingPathSumHelper(matrix, rows-1, c, dp));
